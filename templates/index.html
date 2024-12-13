@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>便當訂購系統</title>
+</head>
+<body>
+    <ul>
+        {% for item in menu %}
+        <li>
+            {{ item.name }} - ${{ item.price }} 
+            <form action="/add_to_cart" method="post" style="display: inline;">
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+                數量: <input type="number" name="quantity" value="1" min="1">
+                <button type="submit">加入購物車</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <head>
+        <meta charset="UTF-8">
+        <title>便當店線上訂單系統</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <style>
+            body {
+                background-color: #f4f4f9;
+                font-family: Arial, sans-serif;
+            }
+            h1 {
+                text-align: center;
+                margin-top: 20px;
+            }
+            .container {
+                margin-top: 20px;
+            }
+            .btn-danger {
+                font-size: 12px;
+            }
+        </style>
+    </head>
+    <body>
+    
+    <h1>便當店線上訂單系統</h1>
+    
+    <div class="container">
+        <!-- 新增訂單的表單 -->
+        <form action="/add" method="post" class="mb-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="name" class="form-label">名字</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="請輸入名字" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="phone" class="form-label">電話</label>
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="請輸入電話號碼" required>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-success w-100">新增</button>
+                </div>
+            </div>
+        </form>
+    
+        <!-- 顯示所有訂單的表格 -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>名字</th>
+                    <th>電話</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in phonebook %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.phone }}</td>
+                    <td>
+                        <form action="/delete/{{ loop.index0 }}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">刪除</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>
+</body>
+</html>

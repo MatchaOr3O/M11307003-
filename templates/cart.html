@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>購物車</title>
+</head>
+<body>
+    <h1>購物車</h1>
+
+    {% if cart %}
+        <ul>
+            {% for item in cart %}
+            <li>
+                {{ item.name }} - ${{ item.price }} x {{ item.quantity }} 
+                <a href="/delete_from_cart/{{ item.id }}">刪除</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h3>總金額: ${{ total_price }}</h3>
+
+        <form action="/confirm_order" method="post">
+            <button type="submit">確認訂單</button>
+        </form>
+    {% else %}
+        <p>購物車是空的</p>
+    {% endif %}
+
+    <a href="/">回到選單</a>
+</body>
+</html>
